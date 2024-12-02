@@ -1,4 +1,11 @@
 # Projeto de Preparação e Transformação de Dados
+---
+## Equipe
+João Pedro <br>
+Kayque Mendes <br>
+Laís Caniato
+
+---
 ## Descrição
 Este projeto contempla um caso de avaliação da disciplina de Data Preparation & Transformation, do curso de MBA em Engenharia de Dados, onde desenvolvemos um fluxo de preparação e transformação de um conjunto de dados brutos, extraído do Kaggle (https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce), que traz dados da rede de comércio digital Olist. Esse fluxo irá descrever desde a extração desses dados, disponibilizados em um arquivo compactado contendo diversos arquivos do tipo "csv", fornecendo dados de vendas, pedidos, produtos, entre outros, dessa rede de comércio, até a transformação, onde realizamos a definição de modelos lógicos e a unificação desses dados.
 ### Ferramentas utilizadas
@@ -84,9 +91,30 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 ```
+---
 ## Terceira Etapa
 Nessa etapa foi criado um fluxo, que aborda desde o início da coleta de dados bruta no arquivo compactado disponibilizado pelo Kaggle, até a definição dos modelos Wide Table e Star Schema.
 
 ![fluxo_dados drawio](https://github.com/user-attachments/assets/abb2422a-f1b0-4c9b-9d35-ce925e1bb73d)
 
+Os arquivos do tipo "sql" anexos no repositório já contém os fluxos de carregamentos de dados, transformação das tabelas dimensão e fato, todas descritas no próprio código e realizadas utilizando somente a linguagem SQL.
 
+---
+## Quarta Etapa
+Para a última etapa do projeto, será necessário decidir entre as abordagens Batch (lotes), Micro-Batch (lotes menores), e Fluxo Contínuo (conhecido como streaming). Levando em conta os dados que foram selecionados nos dois modelos finais, Star Schema e Wide Table, a abordagem de tempestividade dos dados mais adequada seria a de Streaming, visto que esses dados relacionados a vendas, produtos, etc. podem ser determinantes para uma equipe de negócios tomar uma decisão em cima desses dados. Traremos mais pontos positivos e negativos relacionados a essa decisão quanto a abordagem:
+### Pontos positivos
+1. Atualizações em Tempo Real <br>
+Processa e entrega dados em tempo real, possibilitando análises e monitoramento desses dados.
+2. Eficiência no Processamento Contínuo <br>
+Fornece dados de maneira contínua sem a necessidade de aguardar grandes ou pequenos lotes.
+3. Escalabilidade <br>
+Devido a necessidade de infraestrutura dedicada, como o Kafka, torna o sistema altamente escalável para lidar com grandes quantidades de dados.
+
+### Pontos negativos
+1. Complexidade <br>
+Também devido a necessidade da infraestrutura dedicada, torna o processo mais complexo de ser implementado.
+2. Custos <br>
+Seria necessário utilizar muito mais recursos para fornecer essa infraestrutura para o sistema, tornando-o mais custoso no final.
+3. Estado dos dados <br>
+Por conta do fornecimento de dados contínuo, fica difícil monitorar o estado e comportamento desses dados, tornando-o mais suscetível a falhas no futuro.
+---
